@@ -19,52 +19,50 @@ Route::get('/', function () {
     return redirect()->route('login');
 })->name('home');
 
-Route::get('/local', 'HomeController@local')->name('frontend.local');
-Route::get('/impor', 'HomeController@impor')->name('frontend.impor');
-Route::get('/best-seller', 'HomeController@best_seller')->name('frontend.best_seller');
-Route::get('/product-detail/{id}', 'HomeController@detail_product')->name('frontend.detail_product');
-Route::post('/cart/insert', 'HomeController@cart_insert')->name('frontend.cart.insert');
-Route::post('/cart/delete', 'HomeController@cart_delete')->name('frontend.cart.delete');
-Route::post('/cart/update', 'HomeController@cart_update')->name('frontend.cart.update');
-Route::get('/cart', 'HomeController@cart_manage')->name('frontend.cart.manage');
-Route::post('/subscribe', 'HomeController@subscribe')->name('frontend.subscribe');
-Route::post('/search', 'HomeController@search')->name('frontend.search');
-
-Route::group(['prefix' => 'checkout', 'middleware' => ['auth','role:member-access'], 'as'=>'frontend.checkout'], function() {
-    Route::get('/', 'HomeController@checkout')->name('.billing');
-    Route::post('/', 'HomeController@checkout_billing')->name('.billing_proses');
-    Route::get('/shipping', 'HomeController@shipping')->name('.shipping');
-    Route::post('/shipping', 'HomeController@shipping_proses')->name('.shipping_proses');
-    Route::get('/order-review', 'HomeController@order_review')->name('.order_review');
-    Route::post('/order-review', 'HomeController@order_proses')->name('.order_proses');
-});
-
-
-Route::group(['prefix' => 'member', 'middleware' => ['auth','role:member-access'], 'as'=>'member'], function() {
-    Route::get('/payment/{id}', 'HomeController@payment')->name('.payment');
-    Route::post('/payment/{id}', 'HomeController@payment_proses')->name('.payment_proses');
-    Route::get('/invoice/{id}', 'HomeController@invoice')->name('.invoice');
-    Route::get('/order-history', 'HomeController@order_history')->name('.order_history');
-    Route::get('/profile', 'HomeController@profile')->name('.profile');
-    Route::post('/profile', 'HomeController@save_profile')->name('.save_profile');
-});
-
-
-
 //Backend
-Route::group(['prefix' => 'backend', 'middleware' => ['auth','role:admin-access|owner-access'], 'as'=>'backend'], function() {
+Route::group(['prefix' => 'backend', 'middleware' => ['auth','role:admin-access|owner-access|karyawan-access'], 'as'=>'backend'], function() {
 
     //Dashboard
     Route::get('/', 'Backend\DashboardController@index')->name('.dashboard');
 
-    //Category
-    Route::group(['prefix' => 'category', 'as'=>'.category'], function() {
-        Route::get('/', 'Backend\CategoryController@index')->name('.manage');
-        Route::get('/create', 'Backend\CategoryController@create')->name('.create');
-        Route::post('/create', 'Backend\CategoryController@store')->name('.store');
-        Route::get('/edit/{id}', 'Backend\CategoryController@edit')->name('.edit');
-        Route::post('/edit/{id}', 'Backend\CategoryController@update')->name('.update');
-        Route::get('/detail/{id}', 'Backend\CategoryController@show')->name('.show');
+    //Satuan
+    Route::group(['prefix' => 'satuan', 'as'=>'.satuan'], function() {
+        Route::get('/', 'Backend\SatuanController@index')->name('.manage');
+        Route::get('/create', 'Backend\SatuanController@create')->name('.create');
+        Route::post('/create', 'Backend\SatuanController@store')->name('.store');
+        Route::get('/edit/{id}', 'Backend\SatuanController@edit')->name('.edit');
+        Route::post('/edit/{id}', 'Backend\SatuanController@update')->name('.update');
+        Route::get('/detail/{id}', 'Backend\SatuanController@show')->name('.show');
+    });
+
+    //Suplier
+    Route::group(['prefix' => 'suplier', 'as'=>'.suplier'], function() {
+        Route::get('/', 'Backend\SuplierController@index')->name('.manage');
+        Route::get('/create', 'Backend\SuplierController@create')->name('.create');
+        Route::post('/create', 'Backend\SuplierController@store')->name('.store');
+        Route::get('/edit/{id}', 'Backend\SuplierController@edit')->name('.edit');
+        Route::post('/edit/{id}', 'Backend\SuplierController@update')->name('.update');
+        Route::get('/detail/{id}', 'Backend\SuplierController@show')->name('.show');
+    });
+
+    //Item
+    Route::group(['prefix' => 'item', 'as'=>'.item'], function() {
+        Route::get('/', 'Backend\ItemController@index')->name('.manage');
+        Route::get('/create', 'Backend\ItemController@create')->name('.create');
+        Route::post('/create', 'Backend\ItemController@store')->name('.store');
+        Route::get('/edit/{id}', 'Backend\ItemController@edit')->name('.edit');
+        Route::post('/edit/{id}', 'Backend\ItemController@update')->name('.update');
+        Route::get('/detail/{id}', 'Backend\ItemController@show')->name('.show');
+    });
+
+    //Pembelian
+    Route::group(['prefix' => 'pembelian', 'as'=>'.pembelian'], function() {
+        Route::get('/', 'Backend\PembelianController@index')->name('.manage');
+        Route::get('/create', 'Backend\PembelianController@create')->name('.create');
+        Route::post('/create', 'Backend\PembelianController@store')->name('.store');
+        Route::get('/edit/{id}', 'Backend\PembelianController@edit')->name('.edit');
+        Route::post('/edit/{id}', 'Backend\PembelianController@update')->name('.update');
+        Route::get('/detail/{id}', 'Backend\PembelianController@show')->name('.show');
     });
 
     //Product

@@ -44,7 +44,7 @@
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="{{ url('/admin') }}">
-                <img src="{{ url('assets') }}/backend/global/img/logo.png" alt="logo" class="" style="margin-top: 10px;width: 200px;"/> </a>
+                <img src="{{ url('assets') }}/backend/global/img/logo.png" alt="logo" class="" style="width: 200px;"/> </a>
             <div class="menu-toggler sidebar-toggler" >
                 <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
             </div>
@@ -107,7 +107,7 @@
             <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                 @can('admin-access')
                 <li class="nav-item @if (str_is('*.dashboard', Route::currentRouteName())) active @endif start ">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link ">
+                    <a href="{{ route('backend.dashboard') }}" class="nav-link ">
                         <i class="icon-home"></i>
                         <span class="title">Dashboard</span>
                     </a>
@@ -115,18 +115,42 @@
                 <li class="heading">
                     <h3 class="uppercase">Features</h3>
                 </li>
-                <li class="nav-item @if (str_is('*.category.*', Route::currentRouteName())) active @endif ">
-                    <a href="{{ route('admin.category.manage') }}" class="nav-link ">
+                <li class="nav-item @if (str_is('*.satuan.*', Route::currentRouteName())) active @endif ">
+                    <a href="{{ route('backend.satuan.manage') }}" class="nav-link ">
                         <i class="icon-rocket"></i>
-                        <span class="title">Kategori</span>
+                        <span class="title">Satuan</span>
                     </a>
                 </li>
-                    <li class="nav-item @if (str_is('*.iklan.*', Route::currentRouteName())) active @endif ">
-                        <a href="{{ route('admin.iklan.manage') }}" class="nav-link ">
-                            <i class="icon-rocket"></i>
-                            <span class="title">Iklan</span>
-                        </a>
-                    </li>
+                <li class="nav-item @if (str_is('*.suplier.*', Route::currentRouteName())) active @endif ">
+                    <a href="{{ route('backend.suplier.manage') }}" class="nav-link ">
+                        <i class="icon-rocket"></i>
+                        <span class="title">Suplier</span>
+                    </a>
+                </li>
+                <li class="nav-item @if (str_is('*.item.*', Route::currentRouteName())) active @endif ">
+                    <a href="{{ route('backend.item.manage') }}" class="nav-link ">
+                        <i class="icon-rocket"></i>
+                        <span class="title">Item</span>
+                    </a>
+                </li>
+                <li class="nav-item @if (str_is('*.category.*', Route::currentRouteName())) active @endif ">
+                    <a href="#" class="nav-link ">
+                        <i class="icon-rocket"></i>
+                        <span class="title">Penjualan</span>
+                    </a>
+                </li>
+                <li class="nav-item @if (str_is('*.pembelian.*', Route::currentRouteName())) active @endif ">
+                    <a href="{{ route('backend.pembelian.manage') }}" class="nav-link ">
+                        <i class="icon-rocket"></i>
+                        <span class="title">Pembelian</span>
+                    </a>
+                </li>
+                <li class="nav-item @if (str_is('*.category.*', Route::currentRouteName())) active @endif ">
+                    <a href="#" class="nav-link ">
+                        <i class="icon-rocket"></i>
+                        <span class="title">Laporan</span>
+                    </a>
+                </li>
                 <li class="nav-item @if (str_is('*.user.*', Route::currentRouteName())) open active @endif ">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-users"></i>
@@ -135,12 +159,12 @@
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item @if (str_is('*.admin.*', Route::currentRouteName())) active @endif ">
-                            <a href="{{ route('admin.user.admin.manage') }}" class="nav-link ">
+                            <a href="#" class="nav-link ">
                                 <span class="title">Admin</span>
                             </a>
                         </li>
                         <li class="nav-item @if (str_is('*.member.*', Route::currentRouteName())) active @endif ">
-                            <a href="{{ route('admin.user.member.manage') }}" class="nav-link ">
+                            <a href="#" class="nav-link ">
                                 <span class="title">Member</span>
                             </a>
                         </li>
