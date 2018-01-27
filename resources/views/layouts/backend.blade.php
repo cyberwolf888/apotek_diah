@@ -133,8 +133,8 @@
                         <span class="title">Item</span>
                     </a>
                 </li>
-                <li class="nav-item @if (str_is('*.category.*', Route::currentRouteName())) active @endif ">
-                    <a href="#" class="nav-link ">
+                <li class="nav-item @if (str_is('*.penjualan.*', Route::currentRouteName())) active @endif ">
+                    <a href="{{ route('backend.penjualan.manage') }}" class="nav-link ">
                         <i class="icon-rocket"></i>
                         <span class="title">Penjualan</span>
                     </a>

@@ -12,4 +12,9 @@ class Pembelian extends Model
     {
         return $this->belongsTo('App\Models\Suplier','suplier_id');
     }
+
+    public function detail()
+    {
+        return $this->hasMany('App\Models\DetailPembelian','pembelian_id');
+    }
 }

@@ -65,6 +65,17 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth','role:admin-access|
         Route::get('/detail/{id}', 'Backend\PembelianController@show')->name('.show');
     });
 
+    //Penjualan
+    Route::group(['prefix' => 'penjualan', 'as'=>'.penjualan'], function() {
+        Route::get('/', 'Backend\PenjualanController@index')->name('.manage');
+        Route::get('/create', 'Backend\PenjualanController@create')->name('.create');
+        Route::post('/create', 'Backend\PenjualanController@store')->name('.store');
+        Route::get('/edit/{id}', 'Backend\PenjualanController@edit')->name('.edit');
+        Route::post('/edit/{id}', 'Backend\PenjualanController@update')->name('.update');
+        Route::get('/detail/{id}', 'Backend\PenjualanController@show')->name('.show');
+        Route::post('/add_item', 'Backend\PenjualanController@add_item')->name('.add_item');
+    });
+
     //Product
     Route::group(['prefix' => 'product', 'as'=>'.product'], function() {
         Route::get('/', 'Backend\ProductController@index')->name('.manage');

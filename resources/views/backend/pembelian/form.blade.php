@@ -67,6 +67,10 @@
                             {!! Form::select('suplier_id', \App\Models\Suplier::where('status','1')->pluck('nama','id'), $model->suplier_id,['id'=>'suplier_id','placeholder'=>'','class'=>'form-control', 'required']) !!}
                             <label for="suplier_id">Suplier</label>
                         </div>
+                        <div class="form-group form-md-line-input {{ $errors->has('tgl') ? ' has-error' : '' }}">
+                            {!! Form::text('tgl', $model->tgl, ['id'=>'tgl','placeholder'=>'','class'=>'form-control date-picker', 'required', 'readonly']) !!}
+                            <label for="tgl">Tanggal Pembelian</label>
+                        </div>
                         <div class="form-group form-md-line-input {{ $errors->has('faktur') ? ' has-error' : '' }}">
                             {!! Form::text('faktur', $model->faktur, ['id'=>'faktur','placeholder'=>'','class'=>'form-control', 'required']) !!}
                             <label for="faktur">Faktur Pembelian</label>
@@ -76,7 +80,7 @@
                             <label for="total">Total Pembelian</label>
                         </div>
                         <div class="form-group form-md-line-input {{ $errors->has('keterangan') ? ' has-error' : '' }}">
-                            {!! Form::text('keterangan', $model->keterangan, ['id'=>'keterangan','placeholder'=>'','class'=>'form-control', 'required']) !!}
+                            {!! Form::text('keterangan', $model->keterangan, ['id'=>'keterangan','placeholder'=>'','class'=>'form-control']) !!}
                             <label for="keterangan">Keterangan</label>
                         </div>
 
@@ -104,7 +108,32 @@
                 <div class="portlet-body form">
 
                     <div class="form-body">
+                        @if(!isset($update))
+                            <div class="input_fields_wrap">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-circle green add_field_button"><i class="fa fa-plus"></i> Add More Fields</button>
+                                </div>
+                            </div>
+                                <br><br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input">
+                                        {!! Form::select('item_id[]', \App\Models\Item::pluck('nama','id'), null,['placeholder'=>'','class'=>'form-control', 'required']) !!}
+                                        <label for="">Item</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input">
+                                        {!! Form::number('qty[]', null, ['min'=>0,'class'=>'form-control', 'required']) !!}
+                                        <label for="qty">Qty</label>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        @else
 
+                        @endif
 
 
                     </div>
@@ -124,15 +153,47 @@
 @endpush
 
 @push('scripts')
-<script>
-    jQuery(document).ready(function(){
-        jQuery().datepicker&&$(".date-picker").datepicker({
-            format: 'dd-mm-yyyy',
-            orientation:"left",
-            autoclose:!0
-        });
-        $(document).scroll(function(){$(".date-picker").datepicker("place")});
-    });
+    <script>
 
-</script>
+        $(document).ready(function() {
+            jQuery().datepicker&&$(".date-picker").datepicker({
+                format: 'dd-mm-yyyy',
+                orientation:"left",
+                autoclose:!0
+            });
+            $(document).scroll(function(){$(".date-picker").datepicker("place")});
+
+            var max_fields      = 10; //maximum input boxes allowed
+            var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+            var add_button      = $(".add_field_button"); //Add button ID
+            var x = 1; //initlal text box count
+            $(add_button).click(function(e){ //on add input button click
+                e.preventDefault();
+                if(x < max_fields){ //max input box allowed
+                    x++; //text box increment
+                    $(wrapper).append('<div class="row">' +
+                        '<div class="col-md-6">' +
+                            '<div class="form-group form-md-line-input">' +
+                                '<?php echo Form::select('item_id[]', \App\Models\Item::pluck('nama','id'), null,['placeholder'=>'','class'=>'form-control', 'required']); ?>' +
+                                '<label for="">Item</label>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="col-md-4">' +
+                            '<div class="form-group form-md-line-input">' +
+                                '<?php echo Form::number('qty[]', null, ['min'=>0,'class'=>'form-control', 'required']); ?>' +
+                                '<label for="qty">Qty</label>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="col-md-2">' +
+                            '<button type="button" class="btn red-soft btn-xs remove_field"><i class="fa fa-trash"></i></button>'+
+                        '</div>'+
+                        '</div>' ); //add input box
+
+                }
+            });
+            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
+            })
+        });
+    </script>
 @endpush

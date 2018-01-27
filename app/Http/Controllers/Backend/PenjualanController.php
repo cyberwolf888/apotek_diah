@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\DetailPenjualan;
+use App\Models\Item;
+use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +17,8 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        //
+        $model = Penjualan::all();
+        return view('backend.penjualan.manage',['model'=>$model]);
     }
 
     /**
@@ -24,7 +28,9 @@ class PenjualanController extends Controller
      */
     public function create()
     {
-        //
+        \Cart::instance('cart')->destroy();
+        $model = new Penjualan();
+        return view('backend.penjualan.form',['model'=>$model]);
     }
 
     /**
@@ -35,7 +41,29 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $model = new Penjualan();
+        $cart = \Cart::instance('cart');
+
+        $model->user_id = \Auth::user()->id;
+        $model->tgl = date('Y-m-d');
+        $model->total = $cart->total(0,'','');
+        $model->keterangan = $request->keterangan;
+        $model->save();
+
+        foreach ($cart->content() as $row)
+        {
+            $detail = new DetailPenjualan();
+            $detail->penjualan_id = $model->id;
+            $detail->item_id = $row->id;
+            $detail->qty = $row->qty;
+            $detail->harga = $row->price;
+            $detail->total = $row->qty*$row->price;
+            $detail->save();
+        }
+
+        $cart->destroy();
+
+        return redirect()->route('backend.penjualan.manage');
     }
 
     /**
@@ -46,7 +74,9 @@ class PenjualanController extends Controller
      */
     public function show($id)
     {
-        //
+        $model = Penjualan::find($id);
+
+        return view('backend.penjualan.detail',['model'=>$model]);
     }
 
     /**
@@ -81,5 +111,16 @@ class PenjualanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function add_item(Request $request)
+    {
+        $item = Item::find($request->item_id);
+        if($item->stock < $request->qty){
+            return response()->json(['status'=>0,'stock'=>$item->stock]);
+        }
+        \Cart::instance('cart')->add($item->id, $item->nama, $request->qty, $item->harga)->associate('App\Models\Item');
+
+        return response()->json(['status'=>1,'item'=>$item->toArray(),'qty'=>$request->qty,'total'=>\Cart::instance('cart')->total(0,'','')]);
     }
 }

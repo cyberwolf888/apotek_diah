@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\DetailPembelian;
+use App\Models\Item;
 use App\Models\Pembelian;
+use function GuzzleHttp\Psr7\str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -38,7 +41,36 @@ class PembelianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'suplier_id' => 'required',
+            'faktur' => 'required|max:100',
+            'total' => 'required|max:11|alpha_num'
+        ]);
+
+        $model = new Pembelian();
+        $model->suplier_id = $request->suplier_id;
+        $model->user_id = \Auth::user()->id;
+        $model->tgl = date('Y-m-d',strtotime($request->tgl));
+        $model->faktur = $request->faktur;
+        $model->keterangan = $request->keterangan;
+        $model->total = $request->total;
+        $model->save();
+
+        foreach ($request->item_id as $key=>$item)
+        {
+            $mItem = Item::find($item);
+            $detail = new DetailPembelian();
+            $detail->pembelian_id = $model->id;
+            $detail->item_id = $item;
+            $detail->harga = $mItem->harga;
+            $detail->qty = $request->qty[$key];
+            $detail->save();
+
+            $mItem->stock = $mItem->stock+$request->qty[$key];
+            $mItem->save();
+        }
+
+        return redirect()->route('backend.pembelian.manage');
     }
 
     /**
@@ -49,7 +81,9 @@ class PembelianController extends Controller
      */
     public function show($id)
     {
-        //
+        $model = Pembelian::find($id);
+
+        return view('backend.pembelian.detail',['model'=>$model]);
     }
 
     /**

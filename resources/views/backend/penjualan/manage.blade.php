@@ -13,7 +13,7 @@
     <div class="page-head">
         <!-- BEGIN PAGE TITLE -->
         <div class="page-title">
-            <h1>Pembelian
+            <h1>Penjualan
                 <small>Kelola</small>
             </h1>
         </div>
@@ -27,7 +27,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <a href="{{ route('backend.pembelian.manage') }}">Pembelian</a>
+            <a href="{{ route('backend.penjualan.manage') }}">Penjualan</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
@@ -43,11 +43,11 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="icon-settings font-green"></i>
-                        <span class="caption-subject font-green sbold uppercase">Kelola Pembelian</span>
+                        <span class="caption-subject font-green sbold uppercase">Kelola Penjualan</span>
                     </div>
                     <div class="actions">
                         <div class="btn-group btn-group-devided">
-                            <a href="{{ route('backend.pembelian.create') }}" class="btn btn-circle green">
+                            <a href="{{ route('backend.penjualan.create') }}" class="btn btn-circle green">
                                 <i class="fa fa-plus"></i> Tambah Data Baru
                             </a>
                         </div>
@@ -88,9 +88,7 @@
                             <thead>
                             <tr>
                                 <th> No </th>
-                                <th> No Faktur </th>
-                                <th> Nama Suplier </th>
-                                <th> Tgl Pembelian </th>
+                                <th> Tgl Penjualan </th>
                                 <th> Total </th>
                                 <th> Keterangan </th>
                                 <th> Action </th>
@@ -101,13 +99,11 @@
                             @foreach($model as $row)
                                 <tr>
                                     <td> {{ $no }}</td>
-                                    <td> {{ $row->faktur }}</td>
-                                    <td> {{ $row->suplier->nama }}</td>
                                     <td> {{ date('d/m/Y',strtotime($row->tgl))}}</td>
-                                    <td> {{ $row->total }}</td>
+                                    <td> {{ number_format($row->total,0,',','.') }}</td>
                                     <td> {{ $row->keterangan }}</td>
                                     <td class="center" width="100">
-                                        <a href="{{ route('backend.pembelian.show',$row->id) }}" class="btn green btn-xs"><i class="fa fa-eye"></i></a>
+                                        <a href="{{ route('backend.penjualan.show',$row->id) }}" class="btn green btn-xs"><i class="fa fa-eye"></i></a>
                                     </td>
                                 </tr>
                                 <?php $no++ ?>
