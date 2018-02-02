@@ -63,27 +63,28 @@
                         @endif
 
 
-                        <div class="form-group form-md-line-input {{ $errors->has('nama') ? ' has-error' : '' }}">
-                            {!! Form::text('nama', $model->nama, ['id'=>'nama','placeholder'=>'','class'=>'form-control', 'required']) !!}
+                        <div class="form-group {{ $errors->has('nama') ? ' has-error' : '' }}">
                             <label for="penerima">Nama Suplier</label>
+                            {!! Form::text('nama', $model->nama, ['id'=>'nama','placeholder'=>'','class'=>'form-control', 'required']) !!}
                         </div>
-                        <div class="form-group form-md-line-input {{ $errors->has('nama') ? ' has-error' : '' }}">
-                            {!! Form::text('alamat', $model->alamat, ['id'=>'alamat','placeholder'=>'','class'=>'form-control', 'required']) !!}
+                        <div class="form-group {{ $errors->has('nama') ? ' has-error' : '' }}">
                             <label for="alamat">Alamat</label>
+                            {!! Form::text('alamat', $model->alamat, ['id'=>'alamat','placeholder'=>'','class'=>'form-control', 'required']) !!}
                         </div>
-                        <div class="form-group form-md-line-input {{ $errors->has('nama') ? ' has-error' : '' }}">
-                            {!! Form::text('telp', $model->telp, ['id'=>'telp','placeholder'=>'','class'=>'form-control', 'required']) !!}
+                        <div class="form-group {{ $errors->has('nama') ? ' has-error' : '' }}">
                             <label for="telp">Telp</label>
+                            {!! Form::text('telp', $model->telp, ['id'=>'telp','placeholder'=>'','class'=>'form-control', 'required']) !!}
                         </div>
-                        <div class="form-group form-md-line-input {{ $errors->has('status') ? ' has-error' : '' }}">
-                            {!! Form::select('status', ['1'=>'Aktif','0'=>'Tidak Aktif'], $model->status,['id'=>'status','placeholder'=>'','class'=>'form-control', 'required']) !!}
+                        <div class="form-group {{ $errors->has('status') ? ' has-error' : '' }}">
                             <label for="status">Status</label>
+                            {!! Form::select('status', ['1'=>'Aktif','0'=>'Tidak Aktif'], $model->status,['id'=>'status','placeholder'=>'','class'=>'form-control', 'required']) !!}
                         </div>
 
 
                     </div>
                     <div class="form-actions noborder">
                         <button type="submit" class="btn blue">Simpan</button>
+                        <button type="button" class="btn red" onclick="window.location = '{{ route('backend.suplier.manage') }}';">Back</button>
                     </div>
                     </form>
                 </div>

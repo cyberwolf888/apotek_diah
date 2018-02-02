@@ -38,7 +38,7 @@
     <!-- BEGIN PAGE BASE CONTENT -->
     <div class="row">
         {!! Form::open(['route' => isset($update) ? ['backend.pembelian.update', $model->id] : 'backend.pembelian.store', 'files' => true]) !!}
-        <div class="col-md-6 ">
+        <div class="col-md-4 ">
 
             <!-- BEGIN SAMPLE FORM PORTLET-->
             <div class="portlet light bordered">
@@ -63,37 +63,38 @@
                             </div>
                         @endif
 
-                        <div class="form-group form-md-line-input {{ $errors->has('suplier_id') ? ' has-error' : '' }}">
-                            {!! Form::select('suplier_id', \App\Models\Suplier::where('status','1')->pluck('nama','id'), $model->suplier_id,['id'=>'suplier_id','placeholder'=>'','class'=>'form-control', 'required']) !!}
+                        <div class="form-group {{ $errors->has('suplier_id') ? ' has-error' : '' }}">
                             <label for="suplier_id">Suplier</label>
+                            {!! Form::select('suplier_id', \App\Models\Suplier::where('status','1')->pluck('nama','id'), $model->suplier_id,['id'=>'suplier_id','placeholder'=>'','class'=>'form-control', 'required']) !!}
                         </div>
-                        <div class="form-group form-md-line-input {{ $errors->has('tgl') ? ' has-error' : '' }}">
-                            {!! Form::text('tgl', $model->tgl, ['id'=>'tgl','placeholder'=>'','class'=>'form-control date-picker', 'required', 'readonly']) !!}
+                        <div class="form-group {{ $errors->has('tgl') ? ' has-error' : '' }}">
                             <label for="tgl">Tanggal Pembelian</label>
+                            {!! Form::text('tgl', $model->tgl, ['id'=>'tgl','placeholder'=>'','class'=>'form-control date-picker', 'required', 'readonly']) !!}
                         </div>
-                        <div class="form-group form-md-line-input {{ $errors->has('faktur') ? ' has-error' : '' }}">
-                            {!! Form::text('faktur', $model->faktur, ['id'=>'faktur','placeholder'=>'','class'=>'form-control', 'required']) !!}
+                        <div class="form-group {{ $errors->has('faktur') ? ' has-error' : '' }}">
                             <label for="faktur">Faktur Pembelian</label>
+                            {!! Form::text('faktur', $model->faktur, ['id'=>'faktur','placeholder'=>'','class'=>'form-control', 'required']) !!}
                         </div>
-                        <div class="form-group form-md-line-input {{ $errors->has('total') ? ' has-error' : '' }}">
-                            {!! Form::text('total', $model->total, ['id'=>'total','placeholder'=>'','class'=>'form-control', 'required']) !!}
+                        <div class="form-group {{ $errors->has('total') ? ' has-error' : '' }}">
                             <label for="total">Total Pembelian</label>
+                            {!! Form::text('total', $model->total, ['id'=>'total','placeholder'=>'','class'=>'form-control', 'required']) !!}
                         </div>
-                        <div class="form-group form-md-line-input {{ $errors->has('keterangan') ? ' has-error' : '' }}">
-                            {!! Form::text('keterangan', $model->keterangan, ['id'=>'keterangan','placeholder'=>'','class'=>'form-control']) !!}
+                        <div class="form-group {{ $errors->has('keterangan') ? ' has-error' : '' }}">
                             <label for="keterangan">Keterangan</label>
+                            {!! Form::text('keterangan', $model->keterangan, ['id'=>'keterangan','placeholder'=>'','class'=>'form-control']) !!}
                         </div>
 
                     </div>
                     <div class="form-actions noborder">
                         <button type="submit" class="btn blue">Simpan</button>
+                        <button type="button" class="btn red" onclick="window.location = '{{ route('backend.pembelian.manage') }}';">Back</button>
                     </div>
 
                 </div>
             </div>
 
         </div>
-        <div class="col-md-6 ">
+        <div class="col-md-8 ">
 
             <!-- BEGIN SAMPLE FORM PORTLET-->
             <div class="portlet light bordered">
@@ -112,21 +113,27 @@
                             <div class="input_fields_wrap">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <button type="button" class="btn btn-circle green add_field_button"><i class="fa fa-plus"></i> Add More Fields</button>
+                                    <button type="button" class="btn btn-circle green add_field_button"><i class="fa fa-plus"></i> Tambah Isian</button>
                                 </div>
                             </div>
                                 <br><br>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input">
-                                        {!! Form::select('item_id[]', \App\Models\Item::pluck('nama','id'), null,['placeholder'=>'','class'=>'form-control', 'required']) !!}
+                                <div class="col-md-5">
+                                    <div class="form-group">
                                         <label for="">Item</label>
+                                        {!! Form::select('item_id[]', \App\Models\Item::pluck('nama','id'), null,['placeholder'=>'','class'=>'form-control', 'required']) !!}
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input">
-                                        {!! Form::number('qty[]', null, ['min'=>0,'class'=>'form-control', 'required']) !!}
+                                <div class="col-md-3">
+                                    <div class="form-group">
                                         <label for="qty">Qty</label>
+                                        {!! Form::number('qty[]', null, ['min'=>0,'class'=>'form-control', 'required']) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="qty">Harga</label>
+                                        {!! Form::number('harga[]', null, ['min'=>0,'class'=>'form-control', 'required']) !!}
                                     </div>
                                 </div>
                             </div>
@@ -172,19 +179,25 @@
                 if(x < max_fields){ //max input box allowed
                     x++; //text box increment
                     $(wrapper).append('<div class="row">' +
-                        '<div class="col-md-6">' +
-                            '<div class="form-group form-md-line-input">' +
-                                '<?php echo Form::select('item_id[]', \App\Models\Item::pluck('nama','id'), null,['placeholder'=>'','class'=>'form-control', 'required']); ?>' +
+                        '<div class="col-md-5">' +
+                            '<div class="form-group">' +
                                 '<label for="">Item</label>' +
+                                '<?php echo Form::select('item_id[]', \App\Models\Item::pluck('nama','id'), null,['placeholder'=>'','class'=>'form-control', 'required']); ?>' +
                             '</div>' +
                         '</div>' +
-                        '<div class="col-md-4">' +
-                            '<div class="form-group form-md-line-input">' +
-                                '<?php echo Form::number('qty[]', null, ['min'=>0,'class'=>'form-control', 'required']); ?>' +
+                        '<div class="col-md-3">' +
+                            '<div class="form-group">' +
                                 '<label for="qty">Qty</label>' +
+                                '<?php echo Form::number('qty[]', null, ['min'=>0,'class'=>'form-control', 'required']); ?>' +
                             '</div>' +
                         '</div>' +
-                        '<div class="col-md-2">' +
+                        '<div class="col-md-3">' +
+                            '<div class="form-group">' +
+                                '<label for="harga">Harga</label>' +
+                                '<?php echo Form::number('harga[]', null, ['min'=>0,'class'=>'form-control', 'required']); ?>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="col-md-1">' +
                             '<button type="button" class="btn red-soft btn-xs remove_field"><i class="fa fa-trash"></i></button>'+
                         '</div>'+
                         '</div>' ); //add input box

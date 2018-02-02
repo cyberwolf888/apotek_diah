@@ -62,14 +62,35 @@
                             </div>
                         @endif
 
-                        <div class="form-group last">
-                            <div class="fileinput fileinput-new" data-provides="fileinput">
-                                <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                    @if(isset($update))
-                                    <img src="{{ url('assets/img/items/'.$model->gambar) }}" alt="" /> </div>
+                        <div class="form-group {{ $errors->has('nama') ? ' has-error' : '' }}">
+                            <label for="nama">Nama Item</label>
+                            {!! Form::text('nama', $model->nama, ['id'=>'nama','placeholder'=>'','class'=>'form-control', 'required']) !!}
+                        </div>
+                        <div class="form-group {{ $errors->has('satuan_id') ? ' has-error' : '' }}">
+                            <label for="satuan_id">Satuan</label>
+                            {!! Form::select('satuan_id', \App\Models\Satuan::where('status','1')->pluck('nama','id'), $model->satuan_id,['id'=>'satuan_id','placeholder'=>'','class'=>'form-control', 'required']) !!}
+                        </div>
+                        <div class="form-group {{ $errors->has('stock') ? ' has-error' : '' }}">
+                            <label for="stock">Stock</label>
+                            {!! Form::number('stock', $model->stock, ['id'=>'stock','placeholder'=>'','class'=>'form-control', 'min'=>0, 'required']) !!}
+                        </div>
+                        <div class="form-group {{ $errors->has('harga') ? ' has-error' : '' }}">
+                            <label for="harga">Harga</label>
+                            {!! Form::number('harga', $model->harga, ['id'=>'harga','placeholder'=>'','class'=>'form-control', 'min'=>0, 'required']) !!}
+                        </div>
+                        <div class="form-group {{ $errors->has('jenis') ? ' has-error' : '' }}">
+                            <label for="jenis">Jenis</label>
+                            {!! Form::select('jenis', ['1'=>'Obat','0'=>'Peralatan Medis'], $model->jenis,['id'=>'jenis','placeholder'=>'','class'=>'form-control', 'required']) !!}
+                        </div>
+
+                            <div class="form-group last">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                        @if(isset($update))
+                                            <img src="{{ url('assets/img/items/'.$model->gambar) }}" alt="" /> </div>
                                     @else
-                                    <img src="{{ url('assets') }}/backend/global/img/no_image.png" alt="" /> </div>
-                                    @endif
+                                        <img src="{{ url('assets') }}/backend/global/img/no_image.png" alt="" /> </div>
+                                @endif
                                 <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
                                 <div>
                                                     <span class="btn default btn-file">
@@ -79,33 +100,12 @@
                                     <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group form-md-line-input {{ $errors->has('nama') ? ' has-error' : '' }}">
-                            {!! Form::text('nama', $model->nama, ['id'=>'nama','placeholder'=>'','class'=>'form-control', 'required']) !!}
-                            <label for="nama">Nama Item</label>
-                        </div>
-                        <div class="form-group form-md-line-input {{ $errors->has('satuan_id') ? ' has-error' : '' }}">
-                            {!! Form::select('satuan_id', \App\Models\Satuan::where('status','1')->pluck('nama','id'), $model->satuan_id,['id'=>'satuan_id','placeholder'=>'','class'=>'form-control', 'required']) !!}
-                            <label for="satuan_id">Satuan</label>
-                        </div>
-                        <div class="form-group form-md-line-input {{ $errors->has('stock') ? ' has-error' : '' }}">
-                            {!! Form::number('stock', $model->stock, ['id'=>'stock','placeholder'=>'','class'=>'form-control', 'min'=>0, 'required']) !!}
-                            <label for="stock">Stock</label>
-                        </div>
-                        <div class="form-group form-md-line-input {{ $errors->has('harga') ? ' has-error' : '' }}">
-                            {!! Form::number('harga', $model->harga, ['id'=>'harga','placeholder'=>'','class'=>'form-control', 'min'=>0, 'required']) !!}
-                            <label for="harga">Harga</label>
-                        </div>
-                        <div class="form-group form-md-line-input {{ $errors->has('jenis') ? ' has-error' : '' }}">
-                            {!! Form::select('jenis', ['1'=>'Obat','0'=>'Peralatan Medis'], $model->jenis,['id'=>'jenis','placeholder'=>'','class'=>'form-control', 'required']) !!}
-                            <label for="jenis">Jenis</label>
-                        </div>
-
-
+                    </div>
 
                     </div>
                     <div class="form-actions noborder">
                         <button type="submit" class="btn blue">Simpan</button>
+                        <button type="button" class="btn red" onclick="window.location = '{{ route('backend.item.manage') }}';">Back</button>
                     </div>
                     </form>
                 </div>

@@ -62,7 +62,7 @@ class PembelianController extends Controller
             $detail = new DetailPembelian();
             $detail->pembelian_id = $model->id;
             $detail->item_id = $item;
-            $detail->harga = $mItem->harga;
+            $detail->harga = $request->harga[$key];
             $detail->qty = $request->qty[$key];
             $detail->save();
 

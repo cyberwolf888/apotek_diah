@@ -38,7 +38,7 @@
     <!-- BEGIN PAGE BASE CONTENT -->
     <div class="row">
         {!! Form::open(['route' => isset($update) ? ['backend.penjualan.update', $model->id] : 'backend.penjualan.store', 'files' => true]) !!}
-        <div class="col-md-6 ">
+        <div class="col-md-7 ">
 
             <!-- BEGIN SAMPLE FORM PORTLET-->
             <div class="portlet light bordered">
@@ -63,21 +63,22 @@
                             </div>
                         @endif
 
-                        <div class="form-group form-md-line-input {{ $errors->has('keterangan') ? ' has-error' : '' }}">
-                            {!! Form::text('keterangan', $model->keterangan, ['id'=>'keterangan','placeholder'=>'','class'=>'form-control']) !!}
+                        <div class="form-group {{ $errors->has('keterangan') ? ' has-error' : '' }}">
                             <label for="keterangan">Keterangan</label>
+                            {!! Form::textArea('keterangan', $model->keterangan, ['id'=>'keterangan','placeholder'=>'','class'=>'form-control','rows'=>'5']) !!}
                         </div>
 
                     </div>
                     <div class="form-actions noborder">
                         <button type="submit" class="btn blue">Simpan</button>
+                        <button type="button" class="btn red" onclick="window.location = '{{ route('backend.penjualan.manage') }}';">Back</button>
                     </div>
 
                 </div>
             </div>
 
         </div>
-        <div class="col-md-6 ">
+        <div class="col-md-5 ">
 
             <!-- BEGIN SAMPLE FORM PORTLET-->
             <div class="portlet light bordered">
@@ -141,15 +142,15 @@
                     <div class="scroller" style="height:100px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
                             <div class="col-md-8">
-                                <div class="form-group form-md-line-input">
-                                    {!! Form::select('item_id', \App\Models\Item::pluck('nama','id'), null,['id'=>'item_id','placeholder'=>'','class'=>'form-control', 'required']) !!}
+                                <div class="form-group">
                                     <label for="item_id">Item</label>
+                                    {!! Form::select('item_id', \App\Models\Item::pluck('nama','id'), null,['id'=>'item_id','placeholder'=>'','class'=>'form-control', 'required']) !!}
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group form-md-line-input">
-                                    {!! Form::number('qty', null, ['id'=>'qty','min'=>0,'class'=>'form-control', 'required']) !!}
+                                <div class="form-group">
                                     <label for="qty">Qty</label>
+                                    {!! Form::number('qty', null, ['id'=>'qty','min'=>0,'class'=>'form-control', 'required']) !!}
                                 </div>
                             </div>
                         </div>
