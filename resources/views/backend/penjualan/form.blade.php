@@ -3,6 +3,8 @@
 @push('plugin_css')
 <link href="{{ url('assets') }}/backend/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" />
 <link href="{{ url('assets') }}/backend/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ url('assets') }}/backend/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ url('assets') }}/backend/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
 @endpush
 
 @push('page_css')
@@ -131,30 +133,32 @@
     </div>
     <!-- END PAGE BASE CONTENT -->
 
-    <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div id="responsive" class="modal fade" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Tambah Item</h4>
+                    <h4 class="modal-title">Select2 Demo In Modal</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="scroller" style="height:100px" data-always-visible="1" data-rail-visible1="1">
-                        <div class="row">
+                    <form action="#" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Items</label>
                             <div class="col-md-8">
-                                <div class="form-group">
-                                    <label for="item_id">Item</label>
-                                    {!! Form::select('item_id', \App\Models\Item::pluck('nama','id'), null,['id'=>'item_id','placeholder'=>'','class'=>'form-control', 'required']) !!}
+                                <div class="input-group select2-bootstrap-prepend">
+                                    {!! Form::select('item_id', \App\Models\Item::pluck('nama','id'), null,['id'=>'item_id','placeholder'=>'','class'=>'form-control select2-allow-clear', 'required']) !!}
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="qty">Qty</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Qty</label>
+                            <div class="col-md-8">
+                                <div class="input-group select2-bootstrap-append">
                                     {!! Form::number('qty', null, ['id'=>'qty','min'=>0,'class'=>'form-control', 'required']) !!}
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn dark btn-outline">Tutup</button>
@@ -168,9 +172,11 @@
 @push('plugin_scripts')
 <script src="{{ url('assets') }}/backend/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
 <script src="{{ url('assets') }}/backend/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+<script src="{{ url('assets') }}/backend/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
 @endpush
 
 @push('scripts')
+    <script src="{{ url('assets') }}/backend/pages/scripts/components-select2.min.js" type="text/javascript"></script>
     <script>
         var _token = $("input[name='_token']").val();
         jQuery(document).ready(function(){

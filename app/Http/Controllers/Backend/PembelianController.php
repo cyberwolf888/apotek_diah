@@ -18,7 +18,7 @@ class PembelianController extends Controller
      */
     public function index()
     {
-        $model = Pembelian::all();
+        $model = Pembelian::orderBy('id','DESC')->get();
         return view('backend.pembelian.manage',['model'=>$model]);
     }
 

@@ -12,4 +12,9 @@ class Penjualan extends Model
     {
         return $this->hasMany('App\Models\DetailPenjualan','penjualan_id');
     }
+
+    public function suplier()
+    {
+        return $this->belongsTo('App\Models\Suplier','suplier_id');
+    }
 }

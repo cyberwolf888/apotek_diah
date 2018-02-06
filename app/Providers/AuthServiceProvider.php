@@ -33,7 +33,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->type == '2';
         });
 
-        $gate->define('member-access', function($user){
+        $gate->define('karyawan-access', function($user){
             return $user->type == '3';
         });
     }

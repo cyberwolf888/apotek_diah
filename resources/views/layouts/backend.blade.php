@@ -145,11 +145,24 @@
                         <span class="title">Pembelian</span>
                     </a>
                 </li>
-                <li class="nav-item @if (str_is('*.category.*', Route::currentRouteName())) active @endif ">
-                    <a href="#" class="nav-link ">
+                <li class="nav-item @if (str_is('*.laporan.*', Route::currentRouteName())) open active @endif ">
+                    <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-book-open"></i>
                         <span class="title">Laporan</span>
+                        <span class="arrow"></span>
                     </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item @if (str_is('*.penjualan.*', Route::currentRouteName())) active @endif ">
+                            <a href="{{ route('backend.laporan.penjualan') }}" class="nav-link ">
+                                <span class="title">Penjualan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if (str_is('*.pembelian.*', Route::currentRouteName())) active @endif ">
+                            <a href="{{ route('backend.laporan.pembelian') }}" class="nav-link ">
+                                <span class="title">Pembelian</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item @if (str_is('*.user.*', Route::currentRouteName())) open active @endif ">
                     <a href="javascript:;" class="nav-link nav-toggle">
@@ -158,18 +171,18 @@
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item @if (str_is('*.admin.*', Route::currentRouteName())) active @endif ">
-                            <a href="#" class="nav-link ">
+                        <li class="nav-item @if (str_is('*.owner.*', Route::currentRouteName())) active @endif ">
+                            <a href="{{ route('backend.user.owner.manage') }}" class="nav-link ">
                                 <span class="title">Pemilik</span>
                             </a>
                         </li>
-                        <li class="nav-item @if (str_is('*.member.*', Route::currentRouteName())) active @endif ">
-                            <a href="#" class="nav-link ">
+                        <li class="nav-item @if (str_is('*.admin.*', Route::currentRouteName())) active @endif ">
+                            <a href="{{ route('backend.user.admin.manage') }}" class="nav-link ">
                                 <span class="title">Admin</span>
                             </a>
                         </li>
-                        <li class="nav-item @if (str_is('*.member.*', Route::currentRouteName())) active @endif ">
-                            <a href="#" class="nav-link ">
+                        <li class="nav-item @if (str_is('*.karyawan.*', Route::currentRouteName())) active @endif ">
+                            <a href="{{ route('backend.user.karyawan.manage') }}" class="nav-link ">
                                 <span class="title">Karyawan</span>
                             </a>
                         </li>

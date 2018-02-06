@@ -3,6 +3,8 @@
 @push('plugin_css')
 <link href="{{ url('assets') }}/backend/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" />
 <link href="{{ url('assets') }}/backend/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ url('assets') }}/backend/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ url('assets') }}/backend/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
 @endpush
 
 @push('page_css')
@@ -65,7 +67,7 @@
 
                         <div class="form-group {{ $errors->has('suplier_id') ? ' has-error' : '' }}">
                             <label for="suplier_id">Suplier</label>
-                            {!! Form::select('suplier_id', \App\Models\Suplier::where('status','1')->pluck('nama','id'), $model->suplier_id,['id'=>'suplier_id','placeholder'=>'','class'=>'form-control', 'required']) !!}
+                            {!! Form::select('suplier_id', \App\Models\Suplier::where('status','1')->pluck('nama','id'), $model->suplier_id,['id'=>'suplier_id','placeholder'=>'','class'=>'form-control select2', 'required']) !!}
                         </div>
                         <div class="form-group {{ $errors->has('tgl') ? ' has-error' : '' }}">
                             <label for="tgl">Tanggal Pembelian</label>
@@ -121,7 +123,7 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="">Item</label>
-                                        {!! Form::select('item_id[]', \App\Models\Item::pluck('nama','id'), null,['placeholder'=>'','class'=>'form-control', 'required']) !!}
+                                        {!! Form::select('item_id[]', \App\Models\Item::pluck('nama','id'), null,['placeholder'=>'','class'=>'form-control select2', 'required']) !!}
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -157,12 +159,15 @@
 @push('plugin_scripts')
 <script src="{{ url('assets') }}/backend/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
 <script src="{{ url('assets') }}/backend/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+<script src="{{ url('assets') }}/backend/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+
 @endpush
 
 @push('scripts')
     <script>
 
         $(document).ready(function() {
+            $('.select2').select2();
             jQuery().datepicker&&$(".date-picker").datepicker({
                 format: 'dd-mm-yyyy',
                 orientation:"left",
@@ -182,7 +187,7 @@
                         '<div class="col-md-5">' +
                             '<div class="form-group">' +
                                 '<label for="">Item</label>' +
-                                '<?php echo Form::select('item_id[]', \App\Models\Item::pluck('nama','id'), null,['placeholder'=>'','class'=>'form-control', 'required']); ?>' +
+                                '<?php echo Form::select('item_id[]', \App\Models\Item::pluck('nama','id'), null,['placeholder'=>'','class'=>'form-control select2', 'required']); ?>' +
                             '</div>' +
                         '</div>' +
                         '<div class="col-md-3">' +
@@ -201,7 +206,7 @@
                             '<button type="button" class="btn red-soft btn-xs remove_field"><i class="fa fa-trash"></i></button>'+
                         '</div>'+
                         '</div>' ); //add input box
-
+                    $('.select2').select2();
                 }
             });
             $(wrapper).on("click",".remove_field", function(e){ //user click on remove text

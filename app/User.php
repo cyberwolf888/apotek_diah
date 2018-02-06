@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getStatus()
+    {
+        return $this->isActive == 1 ? 'Aktif' : 'Tidak Aktif';
+    }
 }
