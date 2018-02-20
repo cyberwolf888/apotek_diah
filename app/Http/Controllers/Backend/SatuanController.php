@@ -15,7 +15,7 @@ class SatuanController extends Controller
      */
     public function index()
     {
-        $model = Satuan::all();
+        $model = Satuan::orderBy('id','DESC')->get();
         return view('backend.satuan.manage',['model'=>$model]);
     }
 

@@ -17,7 +17,7 @@ class LaporanController extends Controller
     public function result_penjualan(Request $request)
     {
         $start_date = date('Y/m/d', strtotime($request->start_date));
-        $end_date = date('Y/m/d', strtotime($request->end_date));
+        $end_date = date('Y/m/d', strtotime(date('Y-m-d',strtotime($request->end_date)) . ' +1 day'));
 
         $model = Penjualan::whereRaw('created_at>="'.$start_date.'"')->whereRaw('created_at<="'.$end_date.'"')->orderBy('created_at','DESC')->get();
 
@@ -32,9 +32,9 @@ class LaporanController extends Controller
     public function result_pembelian(Request $request)
     {
         $start_date = date('Y/m/d', strtotime($request->start_date));
-        $end_date = date('Y/m/d', strtotime($request->end_date));
+        $end_date = date('Y/m/d', strtotime(date('Y-m-d',strtotime($request->end_date)) . ' +1 day'));
 
-        $model = Pembelian::whereRaw('created_at>="'.$start_date.'"')->whereRaw('created_at<="'.$end_date.'"')->orderBy('created_at','DESC')->get();
+        $model = Pembelian::whereRaw('tgl>="'.$start_date.'"')->whereRaw('tgl<="'.$end_date.'"')->orderBy('created_at','DESC')->get();
 
         return view('backend.laporan.result_pembelian',['model'=>$model]);
     }

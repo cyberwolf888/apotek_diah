@@ -15,7 +15,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $model = Item::all();
+        $model = Item::orderBy('id','DESC')->get();
         return view('backend.item.manage',['model'=>$model]);
     }
 

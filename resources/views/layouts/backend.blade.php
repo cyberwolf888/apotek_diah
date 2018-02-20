@@ -190,6 +190,123 @@
                 </li>
                 @endcan
 
+                @can('karyawan-access')
+                    <li class="nav-item @if (str_is('*.dashboard', Route::currentRouteName())) active @endif start ">
+                        <a href="{{ route('backend.dashboard') }}" class="nav-link ">
+                            <i class="icon-home"></i>
+                            <span class="title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="heading">
+                        <h3 class="uppercase">Features</h3>
+                    </li>
+                    <li class="nav-item @if (str_is('*.satuan.*', Route::currentRouteName())) active @endif ">
+                        <a href="{{ route('backend.satuan.manage') }}" class="nav-link ">
+                            <i class="icon-layers"></i>
+                            <span class="title">Satuan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item @if (str_is('*.suplier.*', Route::currentRouteName())) active @endif ">
+                        <a href="{{ route('backend.suplier.manage') }}" class="nav-link ">
+                            <i class="icon-wallet"></i>
+                            <span class="title">Suplier</span>
+                        </a>
+                    </li>
+                    <li class="nav-item @if (str_is('*.item.*', Route::currentRouteName())) active @endif ">
+                        <a href="{{ route('backend.item.manage') }}" class="nav-link ">
+                            <i class="icon-diamond"></i>
+                            <span class="title">Item</span>
+                        </a>
+                    </li>
+                    <li class="nav-item @if (str_is('*.penjualan.*', Route::currentRouteName())) active @endif ">
+                        <a href="{{ route('backend.penjualan.manage') }}" class="nav-link ">
+                            <i class="icon-calculator"></i>
+                            <span class="title">Penjualan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item @if (str_is('*.pembelian.*', Route::currentRouteName())) active @endif ">
+                        <a href="{{ route('backend.pembelian.manage') }}" class="nav-link ">
+                            <i class="icon-basket-loaded"></i>
+                            <span class="title">Pembelian</span>
+                        </a>
+                    </li>
+                    <li class="nav-item @if (str_is('*.laporan.*', Route::currentRouteName())) open active @endif ">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-book-open"></i>
+                            <span class="title">Laporan</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item @if (str_is('*.penjualan.*', Route::currentRouteName())) active @endif ">
+                                <a href="{{ route('backend.laporan.penjualan') }}" class="nav-link ">
+                                    <span class="title">Penjualan</span>
+                                </a>
+                            </li>
+                            <li class="nav-item @if (str_is('*.pembelian.*', Route::currentRouteName())) active @endif ">
+                                <a href="{{ route('backend.laporan.pembelian') }}" class="nav-link ">
+                                    <span class="title">Pembelian</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                @endcan
+                @can('owner-access')
+                    <li class="nav-item @if (str_is('*.dashboard', Route::currentRouteName())) active @endif start ">
+                        <a href="{{ route('backend.dashboard') }}" class="nav-link ">
+                            <i class="icon-home"></i>
+                            <span class="title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="heading">
+                        <h3 class="uppercase">Features</h3>
+                    </li>
+
+                    <li class="nav-item @if (str_is('*.laporan.*', Route::currentRouteName())) open active @endif ">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-book-open"></i>
+                            <span class="title">Laporan</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item @if (str_is('*.penjualan.*', Route::currentRouteName())) active @endif ">
+                                <a href="{{ route('backend.laporan.penjualan') }}" class="nav-link ">
+                                    <span class="title">Penjualan</span>
+                                </a>
+                            </li>
+                            <li class="nav-item @if (str_is('*.pembelian.*', Route::currentRouteName())) active @endif ">
+                                <a href="{{ route('backend.laporan.pembelian') }}" class="nav-link ">
+                                    <span class="title">Pembelian</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item @if (str_is('*.user.*', Route::currentRouteName())) open active @endif ">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-users"></i>
+                            <span class="title">User</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item @if (str_is('*.owner.*', Route::currentRouteName())) active @endif ">
+                                <a href="{{ route('backend.user.owner.manage') }}" class="nav-link ">
+                                    <span class="title">Pemilik</span>
+                                </a>
+                            </li>
+                            <li class="nav-item @if (str_is('*.admin.*', Route::currentRouteName())) active @endif ">
+                                <a href="{{ route('backend.user.admin.manage') }}" class="nav-link ">
+                                    <span class="title">Admin</span>
+                                </a>
+                            </li>
+                            <li class="nav-item @if (str_is('*.karyawan.*', Route::currentRouteName())) active @endif ">
+                                <a href="{{ route('backend.user.karyawan.manage') }}" class="nav-link ">
+                                    <span class="title">Karyawan</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
+
             </ul>
             <!-- END SIDEBAR MENU -->
         </div>

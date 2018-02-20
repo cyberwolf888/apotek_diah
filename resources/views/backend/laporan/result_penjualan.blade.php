@@ -101,6 +101,8 @@
                             @endforeach
                             </tbody>
                         </table>
+
+                        <button type="button" class="btn red" onclick="window.location = '{{ route('backend.laporan.penjualan') }}';">Back</button>
                     </div>
                 </div>
             </div>

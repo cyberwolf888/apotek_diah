@@ -15,7 +15,7 @@ class SuplierController extends Controller
      */
     public function index()
     {
-        $model = Suplier::all();
+        $model = Suplier::orderBy('id','DESC')->get();
         return view('backend.suplier.manage',['model'=>$model]);
     }
 

@@ -17,7 +17,7 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        $model = Penjualan::all();
+        $model = Penjualan::orderBy('id','DESC')->get();
         return view('backend.penjualan.manage',['model'=>$model]);
     }
 
@@ -59,6 +59,10 @@ class PenjualanController extends Controller
             $detail->harga = $row->price;
             $detail->total = $row->qty*$row->price;
             $detail->save();
+
+            $item = Item::find($row->id);
+            $item->stock = $item->stock-$row->qty;
+            $item->save();
         }
 
         $cart->destroy();

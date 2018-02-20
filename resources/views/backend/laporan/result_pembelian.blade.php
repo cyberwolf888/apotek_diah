@@ -105,6 +105,8 @@
                             @endforeach
                             </tbody>
                         </table>
+
+                        <button type="button" class="btn red" onclick="window.location = '{{ route('backend.laporan.pembelian') }}';">Back</button>
                     </div>
                 </div>
             </div>
